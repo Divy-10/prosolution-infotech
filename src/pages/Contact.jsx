@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 const contactInfo = [
   { icon: <Mail size={20} />, label: 'Email', value: 'prosolutionsw@gmail.com', href: 'mailto:prosolutionsw@gmail.com' },
@@ -36,9 +36,7 @@ const Contact = () => {
         throw new Error('Failed');
       }
     } catch {
-      // Fallback: show success for demo purposes
-      setStatus('sent');
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
   };
@@ -205,6 +203,8 @@ const Contact = () => {
                   className={`w-full py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 transition-all duration-300 ${
                     status === 'sent'
                       ? 'bg-green-500 hover:bg-green-600'
+                      : status === 'error'
+                      ? 'bg-red-500 hover:bg-red-600'
                       : 'bg-gradient-to-r from-accentBlue to-accentPurple hover:shadow-lg hover:shadow-accentBlue/25'
                   }`}
                 >
@@ -224,6 +224,12 @@ const Contact = () => {
                     <>
                       <CheckCircle size={18} />
                       Message Sent Successfully!
+                    </>
+                  )}
+                  {status === 'error' && (
+                    <>
+                      <AlertCircle size={18} />
+                      Failed to send. Try again.
                     </>
                   )}
                 </motion.button>
