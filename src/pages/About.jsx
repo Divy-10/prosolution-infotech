@@ -17,11 +17,11 @@ const team = [
 
 const About = () => {
   return (
-    <div className="bg-darkBg min-h-screen">
+    <div className="bg-bgLight min-h-screen text-brandDark overflow-hidden">
       {/* ───── Hero ───── */}
-      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
-        <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-accentPurple/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accentBlue/10 rounded-full blur-[120px]" />
+      <section className="pt-36 pb-20 px-6 relative overflow-hidden">
+        <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-brandSoft/15 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brandLight/20 rounded-full blur-[120px]" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -30,13 +30,13 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <p className="text-accentBlue text-sm font-semibold uppercase tracking-widest mb-4">About Us</p>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+            <p className="text-brandAccent text-sm font-bold uppercase tracking-widest mb-4">About Us</p>
+            <h1 className="text-5xl md:text-7xl font-extrabold text-brandDark leading-tight mb-6 font-poppins">
               We build digital{' '}
-              <span className="gradient-text">experiences</span>{' '}
+              <span className="gradient-text font-black">experiences</span>{' '}
               that matter
             </h1>
-            <p className="text-gray-400 text-lg leading-relaxed">
+            <p className="text-brandSecondary/70 text-lg leading-relaxed font-medium">
               ProSolution Infotech is a modern digital agency helping businesses grow through
               beautiful websites, powerful software, strategic marketing, and AI-driven creativity.
             </p>
@@ -52,13 +52,13 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card rounded-3xl p-10 hover:border-white/15 transition-all duration-300"
+            className="glass-card rounded-3xl p-10 hover:shadow-lg hover:shadow-brandDark/2 transition-all duration-300 border border-white/60 bg-white/40"
           >
-            <div className="inline-flex p-3 rounded-2xl bg-accentBlue/10 text-accentBlue mb-6">
+            <div className="inline-flex p-3 rounded-2xl bg-brandLight/50 text-brandSecondary mb-6">
               <Target size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
-            <p className="text-gray-400 leading-relaxed">
+            <h3 className="text-2xl font-bold text-brandDark mb-4 font-poppins">Our Mission</h3>
+            <p className="text-brandSecondary/70 leading-relaxed font-medium">
               To empower small and medium businesses with affordable, premium-quality digital solutions
               that drive real growth. We believe every business deserves a strong online presence,
               regardless of its size.
@@ -70,13 +70,13 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card rounded-3xl p-10 hover:border-white/15 transition-all duration-300"
+            className="glass-card rounded-3xl p-10 hover:shadow-lg hover:shadow-brandDark/2 transition-all duration-300 border border-white/60 bg-white/40"
           >
-            <div className="inline-flex p-3 rounded-2xl bg-accentPurple/10 text-accentPurple mb-6">
+            <div className="inline-flex p-3 rounded-2xl bg-brandLight/50 text-brandSecondary mb-6">
               <Eye size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
-            <p className="text-gray-400 leading-relaxed">
+            <h3 className="text-2xl font-bold text-brandDark mb-4 font-poppins">Our Vision</h3>
+            <p className="text-brandSecondary/70 leading-relaxed font-medium">
               To become the most trusted digital partner for businesses across India and beyond.
               We envision a future where technology is accessible, beautiful, and impactful for everyone.
             </p>
@@ -86,7 +86,7 @@ const About = () => {
 
       {/* ───── Our Story ───── */}
       <section className="py-24 px-6 relative">
-        <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-accentBlue/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-brandLight/20 rounded-full blur-[120px]" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -95,11 +95,11 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-accentBlue text-sm font-semibold uppercase tracking-widest mb-4">Our Story</p>
-              <h2 className="text-4xl font-bold text-white mb-6">
+              <p className="text-brandAccent text-sm font-bold uppercase tracking-widest mb-4">Our Story</p>
+              <h2 className="text-4xl font-bold text-brandDark mb-6 font-poppins">
                 From a small idea to a growing digital agency
               </h2>
-              <div className="space-y-4 text-gray-400 leading-relaxed">
+              <div className="space-y-4 text-brandSecondary/70 leading-relaxed font-medium">
                 <p>
                   ProSolution Infotech started with a simple belief: that every business, no matter how small,
                   deserves world-class digital solutions. What began as a passion project quickly grew into a
@@ -120,7 +120,7 @@ const About = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass-card rounded-3xl p-8"
+              className="glass-card rounded-3xl p-8 border border-white/60 bg-white/40"
             >
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -135,10 +135,10 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="bg-white/5 rounded-2xl p-6 text-center border border-white/5 hover:border-white/10 transition-all"
+                    className="bg-white/60 rounded-2xl p-6 text-center border border-white/80 shadow-sm shadow-brandDark/2 hover:scale-[1.02] transition-all"
                   >
-                    <h4 className="text-3xl font-extrabold gradient-text">{stat.number}</h4>
-                    <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
+                    <h4 className="text-3xl font-extrabold gradient-text font-poppins">{stat.number}</h4>
+                    <p className="text-brandSecondary/70 text-sm mt-1 font-semibold">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>
@@ -156,9 +156,9 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-accentBlue text-sm font-semibold uppercase tracking-widest mb-4">Our Values</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              What <span className="gradient-text">drives us</span>
+            <p className="text-brandAccent text-sm font-bold uppercase tracking-widest mb-4">Our Values</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-brandDark font-poppins">
+              What <span className="gradient-text font-black">drives us</span>
             </h2>
           </motion.div>
 
@@ -171,13 +171,13 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="glass-card rounded-3xl p-8 text-center hover:border-white/15 transition-all duration-300 group"
+                className="glass-card rounded-3xl p-8 text-center hover:shadow-lg hover:shadow-brandDark/2 transition-all duration-300 group border border-white/60 bg-white/40"
               >
-                <div className="inline-flex p-3 rounded-2xl bg-accentBlue/10 text-accentBlue mb-6 group-hover:scale-110 transition-transform">
+                <div className="inline-flex p-3 rounded-2xl bg-brandLight/50 text-brandSecondary mb-6 group-hover:scale-110 transition-transform">
                   {value.icon}
                 </div>
-                <h3 className="text-lg font-bold text-white mb-3">{value.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{value.desc}</p>
+                <h3 className="text-lg font-bold text-brandDark mb-3 font-poppins">{value.title}</h3>
+                <p className="text-brandSecondary/70 text-sm leading-relaxed font-medium">{value.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -193,9 +193,9 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-accentBlue text-sm font-semibold uppercase tracking-widest mb-4">Our Team</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Meet the <span className="gradient-text">minds</span> behind it
+            <p className="text-brandAccent text-sm font-bold uppercase tracking-widest mb-4">Our Team</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-brandDark font-poppins">
+              Meet the <span className="gradient-text font-black">minds</span> behind it
             </h2>
           </motion.div>
 
@@ -208,11 +208,11 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
                 whileHover={{ y: -5 }}
-                className="glass-card rounded-3xl p-8 text-center hover:border-white/15 transition-all duration-300"
+                className="glass-card rounded-3xl p-8 text-center hover:shadow-lg hover:shadow-brandDark/2 transition-all duration-300 border border-white/60 bg-white/40"
               >
                 <div className="text-6xl mb-6">{member.avatar}</div>
-                <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
-                <p className="text-gray-500 text-sm">{member.role}</p>
+                <h3 className="text-lg font-bold text-brandDark mb-1 font-poppins">{member.name}</h3>
+                <p className="text-brandSecondary/70 text-sm font-semibold">{member.role}</p>
               </motion.div>
             ))}
           </div>

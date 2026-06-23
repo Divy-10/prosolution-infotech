@@ -1,17 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
+
+const Instagram = ({ size = 20, className = "" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
 
 const contactInfo = [
   { icon: <Mail size={20} />, label: 'Email', value: 'prosolutionsw@gmail.com', href: 'mailto:prosolutionsw@gmail.com' },
-  { icon: <Phone size={20} />, label: 'Instagram', value: '@pro.solutions', href: '#' },
+  { icon: <Instagram size={20} />, label: 'Instagram', value: '@pro.solutions', href: 'https://www.instagram.com/_pro.solutions_?igsh=bGJqMGt6c2NrMGJ2' },
   { icon: <MapPin size={20} />, label: 'Location', value: 'Digital Services, Worldwide', href: '#' },
   { icon: <Clock size={20} />, label: 'Response Time', value: 'Within 24 hours', href: '#' },
 ];
 
 const Contact = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+
+  useEffect(() => {
+    if (location.state?.service) {
+      setFormData((prev) => ({
+        ...prev,
+        message: `Hi, I would like to enquire about your "${location.state.service}" service.`,
+      }));
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +52,7 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch('http://localhost:5002/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -42,11 +72,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-darkBg min-h-screen">
+    <div className="bg-bgLight min-h-screen text-brandDark">
       {/* ───── Hero ───── */}
-      <section className="pt-32 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-20 left-0 w-[400px] h-[400px] bg-accentBlue/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-accentPurple/10 rounded-full blur-[120px]" />
+      <section className="pt-36 pb-16 px-6 relative overflow-hidden">
+        <div className="absolute top-20 left-0 w-[400px] h-[400px] bg-brandSoft/15 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-brandLight/20 rounded-full blur-[120px]" />
 
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
@@ -54,12 +84,12 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-accentBlue text-sm font-semibold uppercase tracking-widest mb-4">Contact Us</p>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6">
+            <p className="text-brandAccent text-sm font-bold uppercase tracking-widest mb-4">Contact Us</p>
+            <h1 className="text-5xl md:text-7xl font-extrabold text-brandDark mb-6 font-poppins">
               Let's build something{' '}
-              <span className="gradient-text">amazing</span>
+              <span className="gradient-text font-black">amazing</span>
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-brandSecondary/70 text-lg max-w-2xl mx-auto font-medium">
               Ready to take your business digital? Get in touch and let's discuss how we can help you grow.
             </p>
           </motion.div>
@@ -68,21 +98,23 @@ const Contact = () => {
 
       {/* ───── Contact Cards ───── */}
       <section className="px-6 pb-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {contactInfo.map((info, i) => (
             <motion.a
               key={i}
               href={info.href}
+              target={info.href.startsWith('http') ? '_blank' : undefined}
+              rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="glass-card rounded-2xl p-6 hover:border-white/15 transition-all duration-300 group block"
+              className="glass-card rounded-2xl p-6 hover:shadow-md hover:shadow-brandDark/2 hover:scale-[1.02] transition-all duration-300 group block border border-white/60 bg-white/40"
             >
-              <div className="inline-flex p-2.5 rounded-xl bg-accentBlue/10 text-accentBlue mb-4 group-hover:scale-110 transition-transform">
+              <div className="inline-flex p-2.5 rounded-xl bg-brandLight/50 text-brandSecondary mb-4 group-hover:scale-110 transition-transform">
                 {info.icon}
               </div>
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{info.label}</p>
-              <p className="text-white text-sm font-medium">{info.value}</p>
+              <p className="text-xs text-brandSecondary/60 uppercase tracking-wider mb-1 font-semibold">{info.label}</p>
+              <p className="text-brandDark text-sm font-bold">{info.value}</p>
             </motion.a>
           ))}
         </div>
@@ -95,54 +127,62 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative rounded-[3rem] overflow-hidden"
+            className="relative rounded-[3rem] overflow-hidden border border-white/60 shadow-xl shadow-brandDark/2 bg-white/40"
           >
             {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accentBlue/10 via-transparent to-accentPurple/10" />
-            <div className="absolute inset-0 glass-card" />
+            <div className="absolute inset-0 bg-gradient-to-br from-brandLight/10 via-transparent to-brandSoft/15" />
+            <div className="absolute inset-0 glass-card border-none bg-transparent" />
 
-            <div className="relative z-10 grid md:grid-cols-2 gap-12 p-10 md:p-16">
+            <div className="relative z-10 grid md:grid-cols-2 gap-12 p-6 sm:p-10 md:p-16">
               {/* Left Side */}
               <div>
-                <h2 className="text-4xl font-bold text-white mb-6">
+                <h2 className="text-4xl font-extrabold text-brandDark mb-6 font-poppins">
                   Get In Touch
                 </h2>
-                <p className="text-gray-400 leading-relaxed mb-10">
+                <p className="text-brandSecondary/70 leading-relaxed mb-10 font-medium">
                   Whether you need a website, app, marketing strategy, or AI solution — we've got you covered. Fill out the form and we'll get back to you within 24 hours.
                 </p>
 
                 <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-accentBlue/10 flex items-center justify-center text-accentBlue shrink-0">
+                  <a
+                    href="mailto:prosolutionsw@gmail.com"
+                    className="flex items-center gap-4 group"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-brandLight/50 flex items-center justify-center text-brandSecondary shrink-0 shadow-sm border border-white/60 group-hover:scale-105 transition-transform">
                       <Mail size={20} />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 uppercase tracking-wider">Email</p>
-                      <p className="text-white font-medium">prosolutionsw@gmail.com</p>
+                      <p className="text-xs text-brandSecondary/60 uppercase tracking-wider font-semibold">Email</p>
+                      <p className="text-brandDark font-bold group-hover:text-brandAccent transition-colors">prosolutionsw@gmail.com</p>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-accentPurple/10 flex items-center justify-center text-accentPurple shrink-0">
-                      <Phone size={20} />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/_pro.solutions_?igsh=bGJqMGt6c2NrMGJ2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 group"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-brandLight/50 flex items-center justify-center text-brandSecondary shrink-0 shadow-sm border border-white/60 group-hover:scale-105 transition-transform">
+                      <Instagram size={20} />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 uppercase tracking-wider">Instagram</p>
-                      <p className="text-white font-medium">@pro.solutions</p>
+                      <p className="text-xs text-brandSecondary/60 uppercase tracking-wider font-semibold">Instagram</p>
+                      <p className="text-brandDark font-bold group-hover:text-brandAccent transition-colors">@pro.solutions</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
 
                 {/* Decorative */}
-                <div className="mt-12 p-6 rounded-2xl bg-white/3 border border-white/5">
-                  <p className="text-white font-semibold mb-2">💡 Free Consultation</p>
-                  <p className="text-gray-500 text-sm">Book a free 30-minute call to discuss your project requirements and get expert advice.</p>
+                <div className="mt-12 p-6 rounded-2xl bg-white/60 border border-white/80 shadow-sm">
+                  <p className="text-brandDark font-bold mb-2 font-poppins">💡 Free Consultation</p>
+                  <p className="text-brandSecondary/70 text-sm font-medium">Book a free 30-minute call to discuss your project requirements and get expert advice.</p>
                 </div>
               </div>
 
               {/* Right Side - Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Full Name</label>
+                  <label className="text-xs text-brandSecondary/60 uppercase tracking-wider mb-2 block font-semibold">Full Name</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -150,13 +190,13 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="John Doe"
-                    className="w-full p-4 rounded-2xl bg-white/5 text-white border border-white/10 outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue/50 transition-all placeholder:text-gray-600"
+                    className="w-full p-4 rounded-2xl bg-white/60 text-brandDark border border-white/80 outline-none focus:border-brandAccent focus:ring-1 focus:ring-brandAccent/30 shadow-sm transition-all placeholder:text-brandSecondary/30 font-medium"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Email Address</label>
+                  <label className="text-xs text-brandSecondary/60 uppercase tracking-wider mb-2 block font-semibold">Email Address</label>
                   <input
                     id="contact-email"
                     type="email"
@@ -164,13 +204,13 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="john@example.com"
-                    className="w-full p-4 rounded-2xl bg-white/5 text-white border border-white/10 outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue/50 transition-all placeholder:text-gray-600"
+                    className="w-full p-4 rounded-2xl bg-white/60 text-brandDark border border-white/80 outline-none focus:border-brandAccent focus:ring-1 focus:ring-brandAccent/30 shadow-sm transition-all placeholder:text-brandSecondary/30 font-medium"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Phone Number</label>
+                  <label className="text-xs text-brandSecondary/60 uppercase tracking-wider mb-2 block font-semibold">Phone Number</label>
                   <input
                     id="contact-phone"
                     type="tel"
@@ -178,19 +218,19 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+91 98765 43210"
-                    className="w-full p-4 rounded-2xl bg-white/5 text-white border border-white/10 outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue/50 transition-all placeholder:text-gray-600"
+                    className="w-full p-4 rounded-2xl bg-white/60 text-brandDark border border-white/80 outline-none focus:border-brandAccent focus:ring-1 focus:ring-brandAccent/30 shadow-sm transition-all placeholder:text-brandSecondary/30 font-medium"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Your Message</label>
+                  <label className="text-xs text-brandSecondary/60 uppercase tracking-wider mb-2 block font-semibold">Your Message</label>
                   <textarea
                     id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell us about your project..."
-                    className="w-full p-4 rounded-2xl bg-white/5 text-white border border-white/10 outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue/50 transition-all placeholder:text-gray-600 h-32 resize-none"
+                    className="w-full p-4 rounded-2xl bg-white/60 text-brandDark border border-white/80 outline-none focus:border-brandAccent focus:ring-1 focus:ring-brandAccent/30 shadow-sm transition-all placeholder:text-brandSecondary/30 h-32 resize-none font-medium"
                     required
                   />
                 </div>
@@ -200,12 +240,12 @@ const Contact = () => {
                   disabled={status === 'sending'}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 transition-all duration-300 ${
+                  className={`w-full py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 transition-all duration-300 shadow-md ${
                     status === 'sent'
-                      ? 'bg-green-500 hover:bg-green-600'
+                      ? 'bg-emerald-600 hover:bg-emerald-700'
                       : status === 'error'
-                      ? 'bg-red-500 hover:bg-red-600'
-                      : 'bg-gradient-to-r from-accentBlue to-accentPurple hover:shadow-lg hover:shadow-accentBlue/25'
+                      ? 'bg-rose-600 hover:bg-rose-700'
+                      : 'bg-gradient-to-r from-brandSecondary to-brandAccent hover:shadow-lg hover:shadow-brandAccent/25'
                   }`}
                 >
                   {status === 'idle' && (

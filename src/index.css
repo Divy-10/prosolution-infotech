@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,17 +9,17 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0c;
+  background: #f3f7fa;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  background: linear-gradient(to bottom, #5483B3, #7DA0CA);
   border-radius: 4px;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(59, 130, 246, 0.3);
-  color: white;
+  background: rgba(84, 131, 179, 0.2);
+  color: #021024;
 }
 
 /* Smooth scrolling */
@@ -28,23 +28,25 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: #0a0a0c;
-  color: white;
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  background: #F3F7FA;
+  color: #021024;
   overflow-x: hidden;
 }
 
 /* Glass morphism utility */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(84, 131, 179, 0.08);
+  border-radius: 24px;
 }
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #021024, #5483B3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -52,10 +54,10 @@ body {
 
 /* Glow effects */
 .glow-blue {
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 40px rgba(84, 131, 179, 0.15);
 }
 .glow-purple {
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 40px rgba(125, 160, 202, 0.15);
 }
 
 /* Animated gradient border */
@@ -66,7 +68,7 @@ body {
 }
 
 .animated-border {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6);
+  background: linear-gradient(135deg, #052659, #5483B3, #052659);
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
 }
