@@ -92,10 +92,37 @@ app.get('/api/leads', async (req, res) => {
     }
 });
 
-// ───── Health Check ─────
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// ───── Health Check Endpoint ─────
+app.get(['/health', '/api/health'], (req, res) => {
+    res.status(200).send('ok');
 });
 
 const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+
+    // ───── Self-Ping / Keep-Alive Service (Every 15 Minutes) ─────
+    const FIFTEEN_MINUTES = 15 * 60 * 1000;
+    const http = require('http');
+    const https = require('https');
+
+    const pingBackend = () => {
+        const baseUrl = process.env.SERVER_URL || `http://localhost:${PORT}`;
+        const targetUrl = `${baseUrl}/health`;
+        const client = targetUrl.startsWith('https') ? https : http;
+
+        client.get(targetUrl, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                console.log(`⏰ [15-Min Keep-Alive Ping] ${targetUrl} -> Status: ${res.statusCode}, Response: "${data}"`);
+            });
+        }).on('error', (err) => {
+            console.warn(`⚠️ [15-Min Keep-Alive Ping Warning]:`, err.message);
+        });
+    };
+
+    // Trigger initial ping after server startup and repeat every 15 minutes
+    setInterval(pingBackend, FIFTEEN_MINUTES);
+});
+
