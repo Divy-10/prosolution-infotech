@@ -52,7 +52,11 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const res = await fetch('http://localhost:5002/api/contact', {
+      const backendUrl = import.meta.env.VITE_API_URL
+        ? (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL)
+        : `http://${window.location.hostname}:5002`;
+
+      const res = await fetch(`${backendUrl}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
