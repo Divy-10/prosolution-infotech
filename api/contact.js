@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const mongoose = require('mongoose');
+import nodemailer from 'nodemailer';
+import mongoose from 'mongoose';
 
 // ───── MongoDB Connection ─────
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/prosolution_db';
@@ -31,7 +31,7 @@ const leadSchema = new mongoose.Schema({
 
 const Lead = mongoose.models.Lead || mongoose.model('Lead', leadSchema, 'leads');
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -130,10 +130,10 @@ module.exports = async function handler(req, res) {
             message: 'Contact form submitted successfully'
         });
     } catch (err) {
-        console.error('❌ [API Error]:', err);
+        console.error('CONTACT API ERROR:', err);
         return res.status(500).json({
             success: false,
-            message: 'Unable to submit contact form'
+            message: 'Failed to submit contact form'
         });
     }
-};
+}
