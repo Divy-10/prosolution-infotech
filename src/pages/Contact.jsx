@@ -52,9 +52,19 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const backendUrl = import.meta.env.VITE_API_URL
-        ? (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL)
-        : `http://${window.location.hostname}:5002`;
+      let backendUrl = '';
+      if (import.meta.env.VITE_API_URL) {
+        backendUrl = import.meta.env.VITE_API_URL.endsWith('/')
+          ? import.meta.env.VITE_API_URL.slice(0, -1)
+          : import.meta.env.VITE_API_URL;
+      } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        backendUrl = 'http://localhost:5002';
+      } else if (/^\d+\.\d+\.\d+\.\d+$/.test(window.location.hostname)) {
+        backendUrl = `http://${window.location.hostname}:5002`;
+      } else {
+        // Production deployment (e.g. Vercel)
+        backendUrl = '';
+      }
 
       const res = await fetch(`${backendUrl}/api/contact`, {
         method: 'POST',
