@@ -72,12 +72,14 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
-      if (res.ok) {
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success !== false) {
         setStatus('sent');
         setFormData({ name: '', email: '', phone: '', message: '' });
         setTimeout(() => setStatus('idle'), 5000);
       } else {
-        throw new Error('Failed');
+        throw new Error(data.message || 'Failed');
       }
     } catch {
       setStatus('error');
